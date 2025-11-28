@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { Trash2, Plus, Edit, X, MessageCircleQuestion, ChevronLeft, ChevronRight, Filter, RefreshCw } from 'lucide-react'; // ✅ SỬA: Thêm icon RefreshCw
+import { Trash2, Plus, Edit, X, MessageCircleQuestion, ChevronLeft, ChevronRight, Filter, RefreshCw } from 'lucide-react'; //  SỬA: Thêm icon RefreshCw
 import SearchComponent from '../components/Search.jsx'; 
 
 const FAQs = () => {
@@ -12,7 +12,7 @@ const FAQs = () => {
   const [selectedCategory, setSelectedCategory] = useState(''); 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5); 
-  const [syncing, setSyncing] = useState(false); // ✅ SỬA: State hiển thị trạng thái đồng bộ
+  const [syncing, setSyncing] = useState(false); // SỬA: State hiển thị trạng thái đồng bộ
 
   // State cho Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,7 +47,7 @@ const FAQs = () => {
     setCurrentPage(1);
   }, [searchTerm, selectedCategory]);
 
-  // ✅ SỬA: HÀM GỌI API ĐỒNG BỘ (GỌI VÀO VERCEL FUNCTION)
+  // SỬA: HÀM GỌI API ĐỒNG BỘ (GỌI VÀO VERCEL FUNCTION)
   const syncToPinecone = async (action, id, data = null) => {
     setSyncing(true);
     try {
@@ -73,13 +73,13 @@ const FAQs = () => {
       let docId = editingId;
       if (editMode) {
         await updateDoc(doc(db, "faqs", editingId), { ...formData });
-        // ✅ SỬA: Gọi đồng bộ Sửa
+        // SỬA: Gọi đồng bộ Sửa
         syncToPinecone('UPSERT', docId, formData);
         alert("Đã cập nhật và đang đồng bộ AI!");
       } else {
         const docRef = await addDoc(collection(db, "faqs"), { ...formData, createdAt: new Date() });
         docId = docRef.id;
-        // ✅ SỬA: Gọi đồng bộ Thêm mới
+        // SỬA: Gọi đồng bộ Thêm mới
         syncToPinecone('UPSERT', docId, formData);
         alert("Đã thêm mới và đang đồng bộ AI!");
       }
@@ -93,7 +93,7 @@ const FAQs = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Chắc chắn xóa câu hỏi này?')) {
       await deleteDoc(doc(db, "faqs", id));
-      // ✅ SỬA: Gọi đồng bộ Xóa
+      // SỬA: Gọi đồng bộ Xóa
       syncToPinecone('DELETE', id);
       fetchFaqs();
     }
@@ -140,7 +140,7 @@ const FAQs = () => {
             <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
                 {faqs.length}
             </span>
-            {/* ✅ SỬA: Hiển thị trạng thái đang đồng bộ */}
+            {/* SỬA: Hiển thị trạng thái đang đồng bộ */}
             {syncing && <span className="text-xs text-green-600 flex items-center gap-1 ml-2 animate-pulse"><RefreshCw size={12}/> Đang đồng bộ AI...</span>}
         </div>
         

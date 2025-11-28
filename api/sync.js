@@ -6,7 +6,6 @@ const PINECONE_API_KEY = process.env.PINECONE_API_KEY;
 const PINECONE_INDEX_NAME = "wehappicms"; 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// --- THÊM DÒNG LOG NÀY ĐỂ DEBUG ---
 console.log("🔍 DEBUG KEY:", {
     Pinecone: PINECONE_API_KEY ? "Đã có (" + PINECONE_API_KEY.substring(0, 5) + "...)" : "❌ RỖNG",
     Gemini: GEMINI_API_KEY ? "Đã có" : "❌ RỖNG"
