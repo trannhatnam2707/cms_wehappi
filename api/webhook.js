@@ -106,7 +106,7 @@ export default async function handler(req, res) {
                 .join("\n\n---\n\n");
 
                 const systemPrompt = `
-                Bạn là nhân viên tư vấn của WeHappi Shop.
+                Bạn là nhân viên tư vấn của WeHappi Shop. (shop bán áo quần theo phong cách lịch sự, sang trọng như vest và các phụ kiện,....)
                 Dựa vào thông tin sau để trả lời khách hàng ngắn gọn, thân thiện:
                 ${contexts}
 
