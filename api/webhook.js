@@ -10,7 +10,7 @@ const FACEBOOK_VERIFY_TOKEN = process.env.FACEBOOK_VERIFY_TOKEN;
 
 const pinecone = new Pinecone({ apiKey: PINECONE_API_KEY });
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-const embeddingModel = genAI.getGenerativeModel({ model: "embedding-001" });
+const embeddingModel = genAI.getGenerativeModel({ model: "gemini-embedding-001" });
 const chatModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 // --- HÀM HELPER: Gửi tin nhắn lại cho khách ---
