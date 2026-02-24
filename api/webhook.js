@@ -23,13 +23,22 @@ async function sendMessageToUser(recipientId, text) {
   };
 
   try {
-    await fetch(url, {
+      const response =  await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     });
+
+    const data = await response.json()
+
+    if(!response.ok){
+      console.error("----Lỗi từ Facebook khi gửi tin: ", JSON.stringify(data,null,2))
+    }else{
+      console.log("----Gửi thành công cho ID:", recipientId);
+    }
+
   } catch (error) {
-    console.error("Lỗi gửi tin Facebook:", error);
+    console.error("---- Lỗi rớt mạng khi gọi API facebook", error);
   }
 }
 
