@@ -40,7 +40,7 @@ async function getEmbedding(text) {
   //ép model trả về đúng 768 demensions 
   const result = await embeddingModel.embedContent({
     content: { parts: [{text: cleanText}]},
-    outputDemensionality: 768
+    outputDimensionality: 768
   });
   return result.embedding.values;
 }
