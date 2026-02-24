@@ -10,7 +10,7 @@ const FACEBOOK_VERIFY_TOKEN = process.env.FACEBOOK_VERIFY_TOKEN;
 
 const pinecone = new Pinecone({ apiKey: PINECONE_API_KEY });
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-const embeddingModel = genAI.getGenerativeModel({ model: "gemini-embedding-001" });
+const embeddingModel = genAI.getGenerativeModel({ model: "gemini-embedding-001" }); // 3072 demensions
 const chatModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 // --- HÀM HELPER: Gửi tin nhắn lại cho khách ---
@@ -36,7 +36,12 @@ async function sendMessageToUser(recipientId, text) {
 // --- HÀM HELPER: Tạo Vector ---
 async function getEmbedding(text) {
   const cleanText = text.replace(/\n/g, " ");
-  const result = await embeddingModel.embedContent(cleanText);
+
+  //ép model trả về đúng 768 demensions 
+  const result = await embeddingModel.embedContent({
+    content: { parts: [{text: cleanText}]},
+    outputDemensionality: 768
+  });
   return result.embedding.values;
 }
 
